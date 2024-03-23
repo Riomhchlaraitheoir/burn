@@ -494,7 +494,21 @@ impl<E: FloatNdArrayElement> FloatTensorOps<Self> for NdArray<E> {
         NdArrayTensor { array }
     }
 
+    fn float_flip<const D: usize>(
+        tensor: burn_tensor::ops::FloatTensor<Self, D>,
+        axes: &[usize],
+    ) -> burn_tensor::ops::FloatTensor<Self, D> {
+        NdArrayOps::flip(tensor, axes)
+    }
+
     fn float_sign<const D: usize>(tensor: NdArrayTensor<E, D>) -> NdArrayTensor<E, D> {
         NdArrayMathOps::sign_op(tensor)
+    }
+
+    fn float_expand<const D1: usize, const D2: usize>(
+        tensor: burn_tensor::ops::FloatTensor<Self, D1>,
+        shape: Shape<D2>,
+    ) -> burn_tensor::ops::FloatTensor<Self, D2> {
+        NdArrayOps::expand(tensor, shape)
     }
 }
